@@ -182,7 +182,7 @@ export default function PiGame() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-slate-800">Leven Pi-dag!</h2>
+        <h2 className="text-3xl font-bold text-slate-800">Leve Pi-dag!</h2>
         <p className="text-slate-600">
           Hoeveel decimalen van Pi ken jij uit je hoofd? Typ ze in en zie je reeks groeien!
         </p>

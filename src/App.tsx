@@ -58,24 +58,24 @@ export default function App() {
     <div className="h-screen overflow-y-auto snap-y snap-mandatory bg-slate-50 font-sans text-slate-900 custom-scrollbar">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between py-3 sm:py-4 gap-3 sm:gap-4">
-            <div className="flex items-center gap-3">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center justify-between py-3 lg:py-4 gap-3 lg:gap-4 w-full">
+            <div className="flex items-center gap-3 shrink-0">
               <img 
                 src="https://sjsp.be/wp-content/uploads/sjsp-logo.png" 
                 alt="SJSP Logo" 
                 className="h-8 sm:h-10 object-contain"
                 referrerPolicy="no-referrer"
               />
-              <span className="text-lg sm:text-xl font-bold text-slate-800">Pi-Dag Ontdekker</span>
+              <span className="text-lg sm:text-xl font-bold text-slate-800 whitespace-nowrap">Pi-Dag Ontdekker</span>
             </div>
             
-            <nav className="flex w-full sm:w-auto justify-between sm:justify-start sm:space-x-1 bg-slate-100/80 p-1 rounded-xl">
+            <nav className="flex w-full lg:w-auto overflow-x-auto justify-start lg:justify-end gap-1 sm:space-x-1 bg-slate-100/80 p-1 rounded-xl hide-scrollbar">
               {sections.map((section) => (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className={`flex items-center justify-center sm:gap-2 px-2 sm:px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap flex-1 sm:flex-none ${
+                  className={`flex shrink-0 items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
                     activeSection === section.id 
                       ? 'bg-white text-primary-600 shadow-sm' 
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
@@ -83,7 +83,7 @@ export default function App() {
                   title={section.label}
                 >
                   {section.icon}
-                  <span className="hidden sm:inline">{section.label}</span>
+                  <span className="inline">{section.label}</span>
                 </button>
               ))}
             </nav>

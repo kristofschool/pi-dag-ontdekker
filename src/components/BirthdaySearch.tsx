@@ -54,7 +54,12 @@ export default function BirthdaySearch() {
   const shareResult = async () => {
     if (!result) return;
     const formattedDate = `${date.padStart(2, '0')}/${month.padStart(2, '0')}${year ? '/' + year : ''}`;
-    const text = `Ik vond mijn verjaardag (${formattedDate}) op decimaal ${result.position.toLocaleString('nl-NL')} in Pi! 🥧\n\nZoek de jouwe op de Pi-Dag Ontdekker van Sint-Jozef Sint-Pieter Blankenberge!`;
+    const searchString = `${date.padStart(2, '0')}${month.padStart(2, '0')}${year}`;
+    
+    // Voeg de context toe met vierkante haken rond de verjaardag
+    const formattedContext = `...${result.context.replace(searchString, `[${searchString}]`)}...`;
+    
+    const text = `🎉 Ik vond mijn verjaardag (${formattedDate}) op decimaal ${result.position.toLocaleString('nl-NL')} in Pi!\n\n${formattedContext}\n\n🕵️‍♂️ Kan jij de jouwe ook vinden? Zoek het nu op in de Pi-Dag Ontdekker van Sint-Jozef Sint-Pieter Blankenberge! 🥧`;
     
     try {
       if (navigator.share) {

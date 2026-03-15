@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Play, ExternalLink, Youtube, RefreshCw, CheckCircle, AlertCircle } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Play, ExternalLink, Youtube } from 'lucide-react';
 
 interface Video {
   id: string;
@@ -61,53 +60,8 @@ const HARDCODED_VIDEOS: Video[] = [
   }
 ];
 
-const KNOWN_IDS = new Set(HARDCODED_VIDEOS.map(v => v.id));
-
-type FetchStatus = 'idle' | 'loading' | 'done' | 'error';
-
-function extractYear(published: string): string {
-  return published ? published.slice(0, 4) : '';
-}
-
 export default function Videos() {
-  const [videos, setVideos] = useState<Video[]>(HARDCODED_VIDEOS);
-  const [status, setStatus] = useState<FetchStatus>('idle');
-  const [newCount, setNewCount] = useState(0);
-  const [errorMsg, setErrorMsg] = useState('');
-
-  const zoekNieuweVideos = async () => {
-    setStatus('loading');
-    setErrorMsg('');
-    try {
-      const res = await fetch('/api/matt-parker-videos');
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || `HTTP ${res.status}`);
-      }
-      const data: { videos: { id: string; title: string; published: string }[] } = await res.json();
-
-      const nieuweVideos: Video[] = data.videos
-        .filter(v => !KNOWN_IDS.has(v.id))
-        .map(v => ({
-          id: v.id,
-          title: v.title,
-          year: extractYear(v.published),
-          isNew: true,
-        }));
-
-      if (nieuweVideos.length > 0) {
-        nieuweVideos.forEach(v => KNOWN_IDS.add(v.id));
-        setVideos(prev => [...prev, ...nieuweVideos]);
-        setNewCount(nieuweVideos.length);
-      } else {
-        setNewCount(0);
-      }
-      setStatus('done');
-    } catch (e: unknown) {
-      setErrorMsg(e instanceof Error ? e.message : 'Onbekende fout');
-      setStatus('error');
-    }
-  };
+  const videos = HARDCODED_VIDEOS;
 
   return (
     <div className="space-y-8">
@@ -124,52 +78,6 @@ export default function Videos() {
         </p>
       </div>
 
-      {/* Zoek nieuwe video's knop */}
-      <div className="flex flex-col items-center gap-3">
-        <button
-          onClick={zoekNieuweVideos}
-          disabled={status === 'loading'}
-          className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white shadow-sm transition-all ${
-            status === 'loading'
-              ? 'bg-primary-400 cursor-not-allowed'
-              : 'bg-primary-600 hover:bg-primary-700 hover:shadow-md'
-          }`}
-        >
-          <RefreshCw className={`w-5 h-5 ${status === 'loading' ? 'animate-spin' : ''}`} />
-          {status === 'loading' ? 'Stand-up Maths doorzoeken…' : 'Zoek nieuwe Pi-video\'s'}
-        </button>
-
-        <AnimatePresence>
-          {status === 'done' && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className={`flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl ${
-                newCount > 0
-                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
-                  : 'bg-slate-100 text-slate-600'
-              }`}
-            >
-              <CheckCircle className="w-4 h-4 shrink-0" />
-              {newCount > 0
-                ? `🎉 ${newCount} nieuwe video${newCount > 1 ? "'s" : ''} gevonden en toegevoegd!`
-                : 'Geen nieuwe Pi-video\'s gevonden — de lijst is up-to-date!'}
-            </motion.div>
-          )}
-          {status === 'error' && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl bg-red-50 text-red-700 border border-red-100"
-            >
-              <AlertCircle className="w-4 h-4 shrink-0" />
-              {errorMsg}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
 
       {/* Video grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -231,11 +139,7 @@ export default function Videos() {
         ))}
       </div>
 
-      <div className="bg-primary-50 rounded-2xl p-6 text-center border border-primary-100 mt-8">
-        <p className="text-primary-800 font-medium">
-          Meer zien? Abonneer je op het kanaal <a href="https://www.youtube.com/user/standupmaths" target="_blank" rel="noopener noreferrer" className="font-bold underline hover:text-primary-900">Stand-up Maths</a> voor nog veel meer wiskundige avonturen!
-        </p>
-      </div>
+
     </div>
   );
 }

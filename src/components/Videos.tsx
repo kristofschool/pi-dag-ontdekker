@@ -12,6 +12,18 @@ interface Video {
 
 const HARDCODED_VIDEOS: Video[] = [
   {
+    id: "kahGSss6SsU",
+    title: "Calculating pi from coin flips (without randomness)",
+    description: "Pi Dag 2026! Matt berekent Pi via muntworp-verhoudingen — zonder willekeur. De nieuwe waarde van Pi: 3.2266…",
+    year: "2026"
+  },
+  {
+    id: "IY0pf0-Daew",
+    title: "Calculating pi with a lunar rover (Moon Pi Update!)",
+    description: "Update over de CubeRover-missie op de Griffin-1 maanlander. De rover is vluchtklaar voor de maanmissie!",
+    year: "2026"
+  },
+  {
     id: "ZNiRzZ66YN0",
     title: "Calculating Pi with Real Pies",
     description: "Matt Parker berekent Pi door echte taarten te meten en te wegen. Een absolute klassieker voor Pi-dag!",

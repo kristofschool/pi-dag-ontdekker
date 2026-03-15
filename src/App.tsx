@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, Target, Search, Gamepad2, AlignJustify, Youtube, Rocket } from 'lucide-react';
+import { Sparkles, Target, Search, Gamepad2, AlignJustify, Youtube, Rocket, Coins } from 'lucide-react';
 import Home from './components/Home';
 import MonteCarlo from './components/MonteCarlo';
 import BuffonNeedle from './components/BuffonNeedle';
@@ -13,6 +13,7 @@ import BirthdaySearch from './components/BirthdaySearch';
 import PiGame from './components/PiGame';
 import Videos from './components/Videos';
 import LunarLander from './components/LunarLander';
+import KopOfMunt from './components/KopOfMunt';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -21,6 +22,7 @@ export default function App() {
     { id: 'home', label: 'Ontdek', icon: <Sparkles className="w-5 h-5" /> },
     { id: 'montecarlo', label: 'Monte Carlo', icon: <Target className="w-5 h-5" /> },
     { id: 'buffon', label: 'Naald van Buffon', icon: <AlignJustify className="w-5 h-5" /> },
+    { id: 'kopmunt', label: 'Kop of Munt', icon: <Coins className="w-5 h-5" /> },
     { id: 'birthday', label: 'Zoek in Pi', icon: <Search className="w-5 h-5" /> },
     { id: 'game', label: 'Daag uit', icon: <Gamepad2 className="w-5 h-5" /> },
     { id: 'videos', label: "Video's", icon: <Youtube className="w-5 h-5" /> },
@@ -103,6 +105,10 @@ export default function App() {
         
         <section id="buffon" className="snap-start scroll-mt-20 sm:scroll-mt-24 min-h-screen flex flex-col justify-center py-12">
           <BuffonNeedle />
+        </section>
+        
+        <section id="kopmunt" className="snap-start scroll-mt-20 sm:scroll-mt-24 min-h-screen flex flex-col justify-center py-12">
+          <KopOfMunt />
         </section>
         
         <section id="birthday" className="snap-start scroll-mt-20 sm:scroll-mt-24 min-h-screen flex flex-col justify-center py-12">
